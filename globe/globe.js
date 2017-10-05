@@ -357,8 +357,8 @@ DAT.Globe = function(container, opts) {
   function render() {
     zoom(curZoomSpeed);
 
-    rotation.x += (target.x - rotation.x) * 0.1;
-    rotation.y += (target.y - rotation.y) * 0.1;
+    rotation.x += (target.x - rotation.x) * 0.4;
+    rotation.y += (target.y - rotation.y) * 0.4;
     distance += (distanceTarget - distance) * 0.3;
 
     camera.position.x = distance * Math.sin(rotation.x) * Math.cos(rotation.y);
