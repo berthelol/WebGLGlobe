@@ -21,7 +21,7 @@ DAT.Globe = function(container, opts) {
     c.setHSL( ( 0.6 - ( x * 0.5 ) ), 1.0, 0.5 );
     return c;
   };
-  var imgDir = opts.imgDir || '/images/';
+  var imgDir = opts.imgDir || './globe/';
 
   var Shaders = {
     'earth' : {
@@ -101,16 +101,29 @@ DAT.Globe = function(container, opts) {
 
     var geometry = new THREE.SphereGeometry(200, 40, 30);
 
-    THREE.ImageUtils.crossOrigin = '';
-    //var texture = THREE.ImageUtils.loadTexture('http://api.meetme.loicberthelot.com/images/world.jpg');
-
     shader = Shaders['earth'];
     uniforms = THREE.UniformsUtils.clone(shader.uniforms);
 
-    uniforms['texture'].value = THREE.ImageUtils.loadTexture('http://api.meetme.loicberthelot.com/images/world.jpg');
-  //  uniforms['texture'].value = THREE.ImageUtils.loadTexture('http://localhost:3001/images/world.jpg');
+    var loader = new THREE.TextureLoader();
 
-     material = new THREE.ShaderMaterial({
+    //allow cross origin loading
+    loader.crossOrigin = '';
+
+    // load a resource
+    /*loader.load('./world.jpg',
+        // Function when resource is loaded
+        function ( texture ) {
+          uniforms['texture'].value=texture;
+        },
+        // Function called when download progresses
+        function ( xhr ) {},
+        // Function called when download errors
+        function ( xhr ) {}
+    );*/
+
+    uniforms['texture'].value = THREE.ImageUtils.loadTexture('http://api.meetme.loicberthelot.com/globe/picture');
+
+    material = new THREE.ShaderMaterial({
 
           uniforms: uniforms,
           vertexShader: shader.vertexShader,

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script type="text/javascript" src="./search.json"></script>
   <title>WebGL Globe</title>
   <meta charset="utf-8">
   <style type="text/css">
@@ -11,7 +12,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: #000000 url(/globe/loading.gif) center center no-repeat;
+      background: #000000 url(../globe/loading.gif) center center no-repeat;
       color: #ffffff;
       font-family: sans-serif;
       font-size: 13px;
@@ -85,7 +86,7 @@
       position: absolute;
       bottom: 15px;
       left: 20px;
-      background: url(/globe/ce.png);
+      background: url(../globe/ce.png);
     }
 
 
@@ -111,9 +112,9 @@
 </a>
 
 
-<script type="text/javascript" src="/globe/third-party/Detector.js"></script>
-<script type="text/javascript" src="/globe/third-party/three.min.js"></script>
-<script type="text/javascript" src="/globe/globe.js"></script>
+<script type="text/javascript" src="../globe/third-party/Detector.js"></script>
+<script type="text/javascript" src="../globe/third-party/three.min.js"></script>
+<script type="text/javascript" src="../globe/globe.js"></script>
 <script type="text/javascript">
 
   var globe = DAT.Globe(document.getElementById('container'), {
@@ -127,21 +128,13 @@
     }
   });
 
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', '/globe-search/search.json', true);
-  xhr.onreadystatechange = function(e) {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        var data = JSON.parse(xhr.responseText);
-        window.data = data;
-        globe.addData(data, {format: 'legend'});
-        globe.createPoints();
-        globe.animate();
-        document.body.style.backgroundImage = 'none'; // remove loading
-      }
-    }
-  };
-  xhr.send(null);
+  var json = JSON.parse(myCustomPopulation);
+
+  globe.addData(json, {format: 'legend'});
+  globe.createPoints();
+  globe.animate();
+  document.body.style.backgroundImage = 'none'; // remove loading
+
 
 </script>
 
